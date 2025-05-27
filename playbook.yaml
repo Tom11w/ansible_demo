@@ -1,0 +1,45 @@
+- name: Conection to vm test playbook
+  hosts: nginx_primary
+  become: true
+  vars:
+    page:
+      title: template title
+      content: txt templated using vars
+  tasks:
+    - block:
+      - command: "dnf install -y 'dnf-command(copr)'"
+      - command: dnf copr enable -y rpmsoftwaremanagement/dnf-nightly
+      - command: dnf install -y -x condor python3-libdnf5
+
+    - name: install nginx
+      ansible.builtin.package:
+        name: nginx
+        state: latest
+
+
+    - name: Ensure nginx is running
+      systemd:
+        name: nginx
+        state: started
+        enabled: true
+
+    - name: permanently enable https service, also enable it immediately if possible
+      ansible.posix.firewalld:
+        service: https
+        state: enabled
+        permanent: true
+        immediate: true
+        offline: true
+
+    - name: permanently enable http service, also enable it immediately if possible
+      ansible.posix.firewalld:
+        service: http
+        state: enabled
+        permanent: true
+        immediate: true
+        offline: true
+
+    - name: website test
+      ansible.builtin.template:
+        src: template/test.j2
+        dest: /usr/share/nginx/html/test.html
