@@ -23,3 +23,10 @@
         page: "{{ pagers.page2 }}"
       debug:
         msg: "{{ page }}"
+
+    - name: Using dict2items
+      vars:
+        page: "{{ item.value }}"
+      ansible.builtin.debug:
+        msg: "{{ page }}"
+      loop: "{{ pagers | dict2items }}"
