@@ -3,7 +3,7 @@
   become: true
   vars:
     base_path: /srv/www
-    pagers:
+    pages:
       page1:
         title: in intersting title
         content: Words and stuff
@@ -58,13 +58,13 @@
         state: directory
         mode: '0755'
 
-    - name: generating html pagers
+    - name: generating html pages
       vars:
         page: "{{ item.value }}"
       ansible.builtin.template:
         src: template/test.j2
         dest: "{{ base_path }}/{{ page.path }}"
-      loop: "{{ pagers | dict2items }}"
+      loop: "{{ pages | dict2items }}"
 
 
     - name: generating index

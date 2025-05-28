@@ -2,7 +2,7 @@
   hosts: nginx_primary
   vars:
     base_path: /srv/www
-    pagers:
+    pages:
       page1:
         title: in intersting title
         content: Words and stuff
@@ -14,13 +14,13 @@
   tasks:
     - name: dir test
       vars:
-        page: "{{ pagers.page1 }}"
+        page: "{{ pages.page1 }}"
       debug:
         msg: "{{ base_path }}/{{page.path}}"
 
     - name: content test
       vars:
-        page: "{{ pagers.page2 }}"
+        page: "{{ pages.page2 }}"
       debug:
         msg: "{{ page }}"
 
@@ -29,4 +29,4 @@
         page: "{{ item.value }}"
       ansible.builtin.debug:
         msg: "{{ page }}"
-      loop: "{{ pagers | dict2items }}"
+      loop: "{{ pages | dict2items }}"
