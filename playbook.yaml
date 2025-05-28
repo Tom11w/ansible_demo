@@ -3,8 +3,8 @@
   become: true
   vars:
     page:
-      title: template title
-      content: txt templated using vars
+      title: in intersting title
+      content: Words and stuff
   tasks:
     - block:
       - command: "dnf install -y 'dnf-command(copr)'"
@@ -16,6 +16,11 @@
         name: nginx
         state: latest
 
+    - name: Config nginx
+      notify: restart nginx
+      ansible.builtin.template:
+        src: template/nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
 
     - name: Ensure nginx is running
       systemd:
@@ -39,7 +44,18 @@
         immediate: true
         offline: true
 
+    - name: Create a directory for html files if it does not exist
+      ansible.builtin.file:
+        path: /srv/www
+        state: directory
+        mode: '0755'
+
     - name: website test
       ansible.builtin.template:
         src: template/test.j2
-        dest: /usr/share/nginx/html/test.html
+        dest: /srv/www/index.html
+
+  handlers:
+      - name: restart nginx
+        service: name=nginx state=restarted
+
