@@ -1,0 +1,25 @@
+- name: Conection to vm test playbook
+  hosts: nginx_primary
+  vars:
+    base_path: /srv/www
+    pagers:
+      page1:
+        title: in intersting title
+        content: Words and stuff
+        path: test.html
+      page2:
+        title: va vagrefgvat gvgyr
+        content: Jbeqf naq fghss
+        path: grfg.html
+  tasks:
+    - name: dir test
+      vars:
+        page: "{{ pagers.page1 }}"
+      debug:
+        msg: "{{ base_path }}/{{page.path}}"
+
+    - name: content test
+      vars:
+        page: "{{ pagers.page2 }}"
+      debug:
+        msg: "{{ page }}"
