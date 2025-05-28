@@ -2,10 +2,18 @@
   hosts: nginx_primary
   become: true
   vars:
-    page:
-      title: in intersting title
-      content: Words and stuff
+    base_path: /srv/www
+    pagers:
+      page1:
+        title: in intersting title
+        content: Words and stuff
+        path: test.html
+      page2:
+        title: va vagrefgvat gvgyr
+        content: Jbeqf naq fghss
+        path: grfg.html
   tasks:
+
     - block:
       - command: "dnf install -y 'dnf-command(copr)'"
       - command: dnf copr enable -y rpmsoftwaremanagement/dnf-nightly
@@ -46,16 +54,30 @@
 
     - name: Create a directory for html files if it does not exist
       ansible.builtin.file:
-        path: /srv/www
+        path: "{{ base_path }}"
         state: directory
         mode: '0755'
 
-    - name: website test
+    - name: generating page 1
+      vars:
+        page: "{{ pagers.page1 }}"
       ansible.builtin.template:
         src: template/test.j2
-        dest: /srv/www/index.html
+        dest: "{{ base_path }}/{{ page.path }}"
+
+    - name: generating page 2
+      vars:
+        page: "{{ pagers.page2 }}"
+      ansible.builtin.template:
+        src: template/test.j2
+        dest: "{{ base_path }}/{{ page.path }}"
+
+    - name: generating index
+      ansible.builtin.template:
+        src: template/index.html.j2
+        dest: "{{ base_path }}/index.html"
+
 
   handlers:
       - name: restart nginx
         service: name=nginx state=restarted
-

@@ -1,0 +1,11 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <title>INDEX DEZZ</title>
+    </head>
+    <body>
+        {% for page in pagers %}
+            <a href="{{ pagers[page]['path'] }}">{{ pagers[page]['title'] }}</a>
+        {% endfor %}
+    </body>
+</html>
