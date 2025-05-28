@@ -58,19 +58,14 @@
         state: directory
         mode: '0755'
 
-    - name: generating page 1
+    - name: generating html pagers
       vars:
-        page: "{{ pagers.page1 }}"
+        page: "{{ item.value }}"
       ansible.builtin.template:
         src: template/test.j2
         dest: "{{ base_path }}/{{ page.path }}"
+      loop: "{{ pagers | dict2items }}"
 
-    - name: generating page 2
-      vars:
-        page: "{{ pagers.page2 }}"
-      ansible.builtin.template:
-        src: template/test.j2
-        dest: "{{ base_path }}/{{ page.path }}"
 
     - name: generating index
       ansible.builtin.template:
