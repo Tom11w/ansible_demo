@@ -1,0 +1,55 @@
+- name: install nginx
+  ansible.builtin.package:
+    name: nginx
+    state: present
+
+- name: Config nginx
+  notify: restart nginx
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    mode: '0544'
+
+- name: Ensure nginx is running
+  systemd:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: permanently enable https service, also enable it immediately if possible
+  ansible.posix.firewalld:
+    service: https
+    state: enabled
+    permanent: true
+    immediate: true
+    offline: true
+
+- name: permanently enable http service, also enable it immediately if possible
+  ansible.posix.firewalld:
+    service: http
+    state: enabled
+    permanent: true
+    immediate: true
+    offline: true
+
+- name: Create a directory for html files if it does not exist
+  ansible.builtin.file:
+    path: "{{ base_path }}"
+    state: directory
+    mode: '0755'
+
+- name: generating html pages
+  vars:
+    page: "{{ item.value }}"
+  ansible.builtin.template:
+    src: page.html.j2
+    dest: "{{ base_path }}/{{ page.path }}"
+    mode: '0544'
+  loop: "{{ pages | dict2items }}"
+
+
+- name: generating index
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: "{{ base_path }}/index.html"
+    mode: '0544'

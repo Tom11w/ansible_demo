@@ -1,0 +1,15 @@
+- name: Fixing dnf problems
+  become: true
+  tags: fix-dnf
+  block:
+    - name: dnf-command
+      command: "dnf install -y 'dnf-command(copr)'"
+      changed_when: false
+
+    - name: install dnf-comand(coper)
+      command: dnf copr enable -y rpmsoftwaremanagement/dnf-nightly
+      changed_when: false
+
+    - name: install dnf-comand(coper)
+      command: dnf install -y -x condor python3-libdnf5
+      changed_when: false

@@ -1,4 +1,16 @@
 nginx_primary:
   hosts:
-    192.168.69.3:
-    192.168.69.4:
+    192.168.70.4:
+
+nginx_secondary:
+  hosts:
+    192.168.70.5:
+
+haproxy:
+  hosts:
+    192.168.70.3:
+
+webservers:
+  children:
+    nginx_primary:
+    nginx_secondary:

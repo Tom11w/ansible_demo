@@ -1,0 +1,10 @@
+base_path: /srv/www
+pages:
+  page1:
+    title: in intersting title
+    content: Words and stuff
+    path: test.html
+  page2:
+    title: va vagrefgvat gvgyr
+    content: Jbeqf naq fghss
+    path: grfg.html
