@@ -13,3 +13,19 @@
     - name: install dnf-comand(coper)
       command: dnf install -y -x condor python3-libdnf5
       changed_when: false
+
+- name: permanently enable https service, also enable it immediately if possible
+  ansible.posix.firewalld:
+    service: https
+    state: enabled
+    permanent: true
+    immediate: true
+    offline: true
+
+- name: permanently enable http service, also enable it immediately if possible
+  ansible.posix.firewalld:
+    service: http
+    state: enabled
+    permanent: true
+    immediate: true
+    offline: true
