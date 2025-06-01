@@ -30,3 +30,7 @@
       ansible.builtin.debug:
         msg: "{{ page }}"
       loop: "{{ pages | dict2items }}"
+
+    - name: test getting pi
+      ansible.builtin.debug:
+        msg: "{{ groups['nginx_primary'][0] }}"
