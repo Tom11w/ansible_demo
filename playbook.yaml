@@ -1,12 +1,23 @@
 - name: Conection to vm test playbook
   hosts: all
   become: true
-  tags: [never, mytag]
+  tags: [mytag]
   roles:
     - common
+
+
+- name: Pull HAproxy
+  hosts: haproxy
+  tags:
+    - proxy
+  become: true
+  roles:
+    - load_balancer
 
 - name: Setup web servers
   hosts: webservers
   become: true
+  tags:
+    - web
   roles:
     - webservers
