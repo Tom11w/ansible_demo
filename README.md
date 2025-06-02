@@ -43,7 +43,7 @@ pip install -r requirements.txt
 
 ## Configure Inventory
 
-Set IP address in the `inventory.yaml` file to match the IP address's of the VM's.
+Replace the example IP address in the `inventory.yaml` file to match the IP address's of the VM's.
 
 ## Running the Playbook
 
@@ -57,8 +57,8 @@ Running the following command dose a few thing:
 ansible-playbook playbook.yaml -i inventory.yaml -K
 ```
 
-After the tasks have run. The IP of the VM running HAProxy should be accessible as a website.
-e.g. [http://192.168.70.3](http://192.168.70.3)
+After the tasks have run. The IP of the VM running HAProxy should be accessible as a website.  
+Example [http://192.168.70.3](http://192.168.70.3)
 
 ## TODO
 
@@ -68,3 +68,5 @@ List of things I would do if I had more time.
 - Access website form other computers over the network
 - Automate VM creation
 - Passwordless sudo
+- Get Fedora dnf-5 fix to only run on machines running Fedora
+- Https
