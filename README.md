@@ -1,6 +1,6 @@
 # INFO
 
-This repo is demonstration purposes.
+This repo is for demonstration purposes.
 
 ## Objectives
 
@@ -10,11 +10,12 @@ This repo is demonstration purposes.
 - Nginx as a web server on 2 of the VM's to serve the HTML pagers
 - HAProxy configured to be a load balancer
 
-## Assumtions
+## Assumptions
 
-- Linux (Fedora) is installed on 3 VM's
-- set up with a user that has sudo.
-- SSH access using ssh key.
+- Linux (Fedora) is installed on 3 VM's. These are the Managed nodes
+- User on the node is set up with sudo permissions.
+- Control node (the machine form which you run Ansible) has a ssh key pair.
+- SSH public key is on Managed nodes in the ~/.ssh/authorized_keys file.
 
 Last item Hint:
 
@@ -40,7 +41,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Configue Inventory
+## Configure Inventory
 
 Set IP address in the `inventory.yaml` file to match the IP address's of the VM's.
 
@@ -61,7 +62,9 @@ e.g. [http://192.168.70.3](http://192.168.70.3)
 
 ## TODO
 
+List of things I would do if I had more time.
+
 - Enable working with other usernames
-- Access form other computers
+- Access website form other computers over the network
 - Automate VM creation
 - Passwordless sudo
