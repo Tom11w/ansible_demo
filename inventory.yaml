@@ -1,10 +1,4 @@
-nginx_primary:
-  hosts:
-    192.168.70.4:
 
-nginx_secondary:
-  hosts:
-    192.168.70.5:
 
 haproxy:
   hosts:
@@ -13,4 +7,8 @@ haproxy:
 webservers:
   children:
     nginx_primary:
+      hosts:
+        192.168.70.4:
     nginx_secondary:
+      hosts:
+        192.168.70.5:

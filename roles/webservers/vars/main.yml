@@ -1,10 +1,10 @@
 base_path: /srv/www
 pages:
   page1:
-    title: in intersting title
+    title: Title made in the demo
     content: Words and stuff
     path: test.html
   page2:
-    title: va vagrefgvat gvgyr
-    content: Jbeqf naq fghss
+    title: Title 2 made in the demo
+    content: Some other text
     path: grfg.html
